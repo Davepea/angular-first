@@ -1,0 +1,10 @@
+.p-field {
+  margin-bottom: 20px;
+}
+
+.p-inputgroup-addon {
+  cursor: pointer;
+}
+.webscroll::-webkit-scrollbar{
+  display: none;
+}

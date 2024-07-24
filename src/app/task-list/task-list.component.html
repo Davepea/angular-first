@@ -1,0 +1,7 @@
+<!-- src/app/task-list/task-list.component.html -->
+<ul class="list-disc pl-5">
+  <li *ngFor="let task of tasks" class="mb-4">
+    <h3 class="text-lg font-semibold">{{ task.name }}</h3>
+    <p>{{ task.description }}</p>
+  </li>
+</ul>

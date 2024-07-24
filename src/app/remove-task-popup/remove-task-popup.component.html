@@ -1,0 +1,12 @@
+<p-dialog header="Remove Task" [(visible)]="visible" [modal]="true" [closable]="false" [responsive]="true">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="task">Task</label>
+      <p-dropdown id="task" [options]="tasks" [(ngModel)]="selectedTask" optionLabel="name" placeholder="Select a Task"></p-dropdown>
+    </div>
+  </div>
+  <p-footer>
+    <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-secondary" (click)="cancel()"></button>
+    <button pButton type="button" label="Save" icon="pi pi-check" [disabled]="!selectedTask" (click)="save()"></button>
+  </p-footer>
+</p-dialog>

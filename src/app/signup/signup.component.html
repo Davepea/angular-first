@@ -1,0 +1,65 @@
+<div class="grid grid-cols-12  h-screen overflow-scroll webscroll">
+  <div class="md:col-span-6 xs:col-span-12 relative md:block xs:hidden bg-[url('https://images.pexels.com/photos/5940841/pexels-photo-5940841.jpeg?auto=compress&cs=tinysrgb&w=1000')]">
+    <div class="h-full w-full">
+      <img src="https://images.pexels.com/photos/5940841/pexels-photo-5940841.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="" class="h-full w-full object-cover">
+    </div>
+    <div class="absolute top-0 right-0 left-0 flex items-end bottom-0 bg-[#0000004e]">
+      <h1 class=" text-7xl text-[#fff] p-2">Welcome  To This Web App</h1>
+    </div>
+  </div>
+  <div class="md:col-span-6 xs:col-span-12 self-center">
+    <div  class="w-full h-full md:p-12 xs:p-10 max-w-[450px]">
+      <h1 class="text-5xl font-bold pb-10 ">Register</h1>
+      <form [formGroup]="signupForm" (ngSubmit)="onSignup()" class="f">
+        <div class="p-fluid ">
+          <div class="p-field pb-2">
+            <label class="text-sm" for="email">Email</label>
+            <input id="email" class="w-full h-[40px] border px-2 focus:bg-slate-200 " type="text" pInputText formControlName="email"
+                   [ngClass]="{'ng-invalid': signupForm.get('email')?.invalid && signupForm.get('email')?.touched}">
+            <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="p-error">Invalid email format</div>
+          </div>
+
+          <div class="p-field pb-2">
+            <label class="text-sm text-gray-600" for="username">Username</label>
+            <input id="username" class="w-full h-[40px] border px-2 focus:bg-slate-200" type="text" pInputText formControlName="username"
+                   [ngClass]="{'ng-invalid': signupForm.get('username')?.invalid && signupForm.get('username')?.touched}">
+          </div>
+
+          <div class="p-field pb-2">
+            <label class="text-sm" for="password">Password</label>
+            <div class="p-inputgroup">
+              <input id="password" class="w-full h-[40px] border px-2 focus:bg-slate-200" [type]="showPassword ? 'text' : 'password'" pInputText formControlName="password"
+                     [ngClass]="{'ng-invalid': signupForm.get('password')?.invalid && signupForm.get('password')?.touched}">
+              <span class="p-inputgroup-addon" (click)="togglePasswordVisibility()">
+                <i class="pi" [ngClass]="showPassword ? 'pi-eye-slash' : 'pi-eye'"></i>
+              </span>
+            </div>
+            <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="p-error">Password must be at least 8 characters</div>
+          </div>
+
+          <div class="p-field pb-2">
+            <label class="text-sm" for="confirmPassword">Confirm Password</label>
+            <div class="p-inputgroup">
+              <input id="confirmPassword" class="w-full h-[40px] border px-2 focus:bg-slate-200" [type]="showConfirmPassword ? 'text' : 'password'" pInputText formControlName="confirmPassword"
+                     [ngClass]="{'ng-invalid': signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched}">
+              <span class="p-inputgroup-addon" (click)="toggleConfirmPasswordVisibility()">
+                <i class="pi" [ngClass]="showConfirmPassword ? 'pi-eye-slash' : 'pi-eye'"></i>
+              </span>
+            </div>
+            <div *ngIf="signupForm.hasError('mismatch') && signupForm.get('confirmPassword')?.touched" class="p-error">Passwords do not match</div>
+          </div>
+
+          <div class="p-field pb-2">
+            <label class="text-sm" for="isAdmin">Is Admin</label>
+            <p-toggleButton formControlName="isAdmin" onLabel="Yes" offLabel="No"></p-toggleButton>
+          </div>
+
+          <div class="p-field">
+            <button type="submit" pButton label="Sign Up"  class="w-[300px] bg-[#efc050] h-[40px] text-white" [disabled]="signupForm.invalid"></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>

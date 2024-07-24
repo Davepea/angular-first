@@ -1,0 +1,20 @@
+<p-dialog header="Add User" [(visible)]="visible" [modal]="true" [closable]="false" [responsive]="true">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="userName">User Name</label>
+      <input id="userName" type="text" pInputText [(ngModel)]="user.userName">
+    </div>
+    <div class="p-field">
+      <label for="email">Email</label>
+      <input id="email" type="email" pInputText [(ngModel)]="user.email">
+    </div>
+    <div class="p-field">
+      <label for="isAdmin">Is Admin</label>
+      <p-checkbox [(ngModel)]="user.isAdmin"></p-checkbox>
+    </div>
+  </div>
+  <p-footer>
+    <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-secondary" (click)="cancel()"></button>
+    <button pButton type="button" label="Save" icon="pi pi-check" (click)="save()"></button>
+  </p-footer>
+</p-dialog>

@@ -1,0 +1,13 @@
+<!-- src/app/task-page/task-page.component.html -->
+<div class="p-6 bg-gray-100">
+  <h2 class="text-2xl font-bold mb-4">Tasks</h2>
+  <button pButton type="button" label="Toggle View" icon="pi pi-refresh" class="mb-4 bg-blue-500 py-2 px-6 text-white" (click)="toggleView()"></button>
+
+  <ng-container *ngIf="isCardView; else listView">
+    <app-task-card *ngFor="let task of tasks" [task]="task"></app-task-card>
+  </ng-container>
+
+  <ng-template #listView>
+    <app-task-list [tasks]="tasks"></app-task-list>
+  </ng-template>
+</div>
