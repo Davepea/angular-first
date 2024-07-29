@@ -1,36 +1,41 @@
-<div class="grid grid-cols-12  h-screen overflow-scroll webscroll">
+<div class="grid grid-cols-12 h-screen overflow-scroll webscroll">
   <div class="md:col-span-6 xs:col-span-12 relative md:block xs:hidden bg-[url('https://images.pexels.com/photos/3228812/pexels-photo-3228812.jpeg?auto=compress&cs=tinysrgb&w=1000')]">
-    <div class="h-screen w-full ">
+    <div class="h-screen w-full">
       <img src="https://images.pexels.com/photos/3228812/pexels-photo-3228812.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="" class="h-full w-full object-cover">
     </div>
     <div class="absolute top-0 right-0 left-0 flex items-end bottom-0 bg-[#0000004e]">
-      <h1 class=" text-7xl text-[#fff] p-2">Welcome Back To This Web App</h1>
+      <h1 class="text-7xl text-[#fff] p-2">Welcome Back To This Web App</h1>
     </div>
   </div>
   <div class="md:col-span-6 xs:col-span-12 self-center">
-    <div class=" w-full h-full md:p-12 xs:p-10 max-w-[450px]">
-      <h1 class="text-5xl font-bold pb-10 ">Login</h1>
+    <div class="w-full h-full md:p-12 xs:p-10 max-w-[450px]">
+      <h1 class="text-5xl font-bold pb-10">Login</h1>
 
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
         <div class="p-field">
-          <label for="email " class="w-full block">Email</label>
-          <input id="email" type="text" class="w-full h-[40px] border px-2 focus:bg-slate-200 " pInputText formControlName="email" />
+          <label for="email" class="w-full block">Email</label>
+          <input id="email" type="text" class="w-full h-[40px] border px-2 focus:bg-slate-200" pInputText formControlName="email" />
           <p-message *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" severity="error" text="Invalid email"></p-message>
         </div>
         <div class="p-field">
           <label for="password">Password</label>
           <div class="p-inputgroup">
-            <input id="password" [type]="passwordFieldType" class="w-full h-[40px] border px-2 focus:bg-slate-200 " pInputText formControlName="password" />
+            <input id="password" [type]="passwordFieldType" class="w-full h-[40px] border px-2 focus:bg-slate-200" pInputText formControlName="password" />
             <span class="p-inputgroup-addon" (click)="togglePasswordVisibility()">
               <i [class]="passwordFieldType === 'password' ? 'pi pi-eye' : 'pi pi-eye-slash'"></i>
             </span>
           </div>
           <p-message *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" severity="error" text="Password must be at least 6 characters"></p-message>
         </div>
-        <button pButton type="submit"class="w-[300px] bg-[#efc050] h-[40px] text-white mt-6"  label="Login" [disabled]="loginForm.invalid"></button>
+
+        <p-message *ngIf="loginError" severity="error" text="{{ loginError }}"></p-message> <!-- Add this line to display the error message -->
+
+        <button pButton type="submit" class="w-[300px] bg-[#efc050] h-[40px] text-white mt-6" label="Login" [disabled]="loginForm.invalid"></button>
+        <p class="text-xs pt-4 text-[grey]">
+          Don't have an account?
+          <a routerLink="/signup" class="text-[#efc050] underline underline-offset-4">Register here</a>
+        </p>
       </form>
     </div>
-
   </div>
-
 </div>

@@ -3,5 +3,6 @@ export interface User {
   userName: string;
   email: string;
   isAdmin: boolean;
-  noOfTasks: number;
+  taskIds?: string[];  // Optional property to store task IDs
+  noOfTasks: number; // Add this line to include noOfTasks
 }

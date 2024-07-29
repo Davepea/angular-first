@@ -18,11 +18,23 @@ export class TaskPageComponent implements OnInit {
     this.loadTasks();
   }
 
-  loadTasks(): void {
-    this.taskService.getTasks().subscribe((tasks: Task[]) => {
+  loading = true;
+
+loadTasks(): void {
+  this.taskService.getTasks().subscribe({
+    next: (tasks: Task[]) => {
       this.tasks = tasks;
-    });
-  }
+      this.loading = false;
+    },
+    error: (err) => {
+      console.error('Failed to load tasks', err);
+      this.loading = false;
+      // Optionally, handle the error
+    }
+  });
+}
+
+
 
   toggleView(): void {
     this.isCardView = !this.isCardView;

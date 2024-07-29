@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { AuthService } from '../auth.service';  // Import AuthService
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +13,7 @@ export class SignupComponent {
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {  // Inject AuthService
     this.signupForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
@@ -30,8 +31,11 @@ export class SignupComponent {
 
   onSignup() {
     if (this.signupForm.valid) {
-      localStorage.setItem('user', JSON.stringify(this.signupForm.value));
+      const { email, username, password, isAdmin } = this.signupForm.value;
+      const newUser = { email, username, password, isAdmin };
+      this.authService.addUser(newUser);
       alert('Signup successful');
+      this.router.navigate(['/login']);
     }
   }
 

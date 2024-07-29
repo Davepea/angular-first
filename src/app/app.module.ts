@@ -31,6 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { TaskPageComponent } from './task-page/task-page.component';
 import { TaskCardComponent } from './task-card/task-card.component';
 import { TaskListComponent } from './task-list/task-list.component';
+import { LayoutComponent } from './layout/layout.component';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 
 
@@ -49,12 +51,15 @@ import { TaskListComponent } from './task-list/task-list.component';
     RemoveTaskPopupComponent,
     TaskPageComponent,
     TaskCardComponent,
+
     TaskListComponent,
+    LayoutComponent,
 
   ],
   imports: [
     FormsModule,
     BrowserModule,
+    ToggleButtonModule,
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -64,6 +69,7 @@ import { TaskListComponent } from './task-list/task-list.component';
     CardModule,
     MessageModule,
     ChartModule,
+
     DropdownModule,
     DialogModule,
     HttpClientModule

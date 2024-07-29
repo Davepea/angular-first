@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginForm: FormGroup;
   passwordFieldType: string = 'password';
+  loginError: string | null = null; // Add a property to store the error message
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
@@ -31,7 +32,7 @@ export class LoginComponent {
       if (this.authService.login(email, password)) {
         this.router.navigate(['/dashboard']);
       } else {
-        // Show error message
+        this.loginError = 'Invalid email or password'; // Set the error message
       }
     }
   }

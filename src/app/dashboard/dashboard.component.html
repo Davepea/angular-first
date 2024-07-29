@@ -1,27 +1,29 @@
-<div class="grid grid-cols-12 h-screen overflow-hidden">
+<!-- <div class="grid grid-cols-12 h-screen overflow-hidden">
   <div class="md:col-span-3 xs:col-span-12">
   <app-side-bar></app-side-bar>
 
   </div>
   <div class="md:col-span-9 p-6 bg-gray-100 xs:col-span-12 overflow-scroll">
     <app-top-bar></app-top-bar>
-    <div class="my-4 ">
-      <h2 class="text-2xl font-bold mb-4">Dashboard</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="text-lg font-semibold mb-2">User Analytics</h3>
-          <canvas id="userChart">
-            
-          </canvas>
-        </div>
-        <div class="bg-white p-4 rounded-lg shadow-sm">
-          <h3 class="text-lg font-semibold mb-2">Tasks by User</h3>
-          <canvas id="taskChart"></canvas>
-        </div>
-      </div>
-      <button pButton type="button" label="Export to CSV" icon="pi pi-file" class="bg-blue-500 py-2 px-6 text-white" (click)="exportToCSV()"></button>
-    </div>
-    <!-- Router outlet for nested routes -->
-    <router-outlet></router-outlet>
+
   </div>
+</div> -->
+
+<div class="my-4 ">
+  <h2 class="text-2xl font-bold mb-4">Dashboard</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+    <div class="bg-white p-4 rounded-lg shadow-sm">
+      <h3 class="text-lg font-semibold mb-2">User Analytics</h3>
+      <canvas id="userChart">
+
+      </canvas>
+    </div>
+    <div class="bg-white p-4 rounded-lg shadow-sm">
+      <h3 class="text-lg font-semibold mb-2">Tasks by User</h3>
+      <canvas id="taskChart"></canvas>
+    </div>
+  </div>
+  <button pButton type="button" label="Export to CSV" icon="pi pi-file" class="bg-blue-500 py-2 px-6 text-white" (click)="exportToCSV()"></button>
 </div>
+<!-- Router outlet for nested routes -->
+<router-outlet></router-outlet>
