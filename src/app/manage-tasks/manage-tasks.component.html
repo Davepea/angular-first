@@ -1,10 +1,15 @@
-<div class="p-6 bg-gray-100">
+<div class="md:p-6 bg-gray-100">
   <h2 class="text-2xl font-bold mb-4">Manage Tasks</h2>
-  <div class="flex gap-4">
-    <button pButton label="Create Task" class="mb-4 bg-green-500 py-2 px-6 text-white" icon="pi pi-plus" (click)="showCreateTaskDialog()"></button>
-    <button pButton type="button" label="Delete Selected Tasks" icon="pi pi-trash" class="mb-4 bg-red-500 py-2 px-6 text-white" (click)="deleteSelectedTasks()" [disabled]="!anyTaskSelected()"></button>
-    <button pButton type="button" label="Import Tasks from CSV" icon="pi pi-file-import" class="mb-4 bg-blue-500 py-2 px-6 text-white" (click)="importTasksFromCSV()"></button>
-    <button pButton type="button" label="Export Tasks to CSV" icon="pi pi-file-export" class="mb-4 bg-blue-500 py-2 px-6 text-white" (click)="exportTasksToCSV()"></button>
+  <div class="flex flex-wrap justify-between">
+    <button pButton label="Create Task" class="mb-4 bg-green-500 py-2 px-6 text-white md:w-[200px] xs:text-xs md:text-base xs:w-[190px]" icon="pi pi-plus"
+      (click)="showCreateTaskDialog()"></button>
+    <button pButton type="button" label="Delete Selected Tasks" icon="pi pi-trash"
+      class="mb-4 bg-red-500 py-2 px-6 text-white md:w-[200px] xs:text-xs md:text-base xs:w-[190px]" [disabled]="!anyTaskSelected()"
+      (click)="deleteSelectedTasks()"></button>
+    <button pButton type="button" label="Import Tasks from CSV" icon="pi pi-file-import"
+      class="mb-4 bg-blue-500 py-2 px-6 text-white md:w-[200px] xs:text-xs md:text-base xs:w-[190px]" (click)="importTasksFromCSV()"></button>
+    <button pButton type="button" label="Export Tasks to CSV" icon="pi pi-file-export"
+      class="mb-4 bg-blue-500 py-2 px-6 text-white md:w-[200px] xs:text-xs md:text-base xs:w-[190px]" (click)="exportTasksToCSV()"></button>
   </div>
 
   <p-table [value]="tasks" selectionMode="multiple" [(selection)]="selectedTasks" dataKey="id">
@@ -31,9 +36,5 @@
   </p-table>
 
   <!-- Conditionally show CreateTaskComponent -->
-  <app-create-task
-  [display]="displayCreateTaskDialog"
-  (hide)="hideCreateTaskDialog()"
-  (taskAdded)="onTaskAdded()">
-</app-create-task>
+  <app-create-task [display]="displayCreateTaskDialog" (hide)="hideCreateTaskDialog()"></app-create-task>
 </div>

@@ -1,54 +1,62 @@
 import { Injectable } from '@angular/core';
 import { Task } from '../../models/task.model';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { UserService } from './user.service';
 import { User } from '../../models/user.model';
 import { switchMap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TaskService {
   private localStorageKey = 'tasks';
 
-  constructor(private userService: UserService) { }
+  tasks: Subject<Task[]> = new BehaviorSubject<Task[]>([]);
 
-  getTasks(): Observable<Task[]> {
+  constructor(private userService: UserService) {}
+
+  loadTasks(): void {
     const tasks = JSON.parse(localStorage.getItem(this.localStorageKey) || '[]');
-    return of(tasks);
+    this.tasks.next(tasks);
   }
 
-  addTask(task: Task): Observable<Task> {
+  getTasks(): Task[] {
     const tasks = JSON.parse(localStorage.getItem(this.localStorageKey) || '[]');
+    return tasks;
+  }
+
+  getTasksForCurrentUser(userId: string): Task[] {
+    const tasks = this.getTasks();
+    return tasks.filter(task => task.userIds.includes(userId));
+  }
+
+  addTask(task: Task): void {
+    const tasks = this.getTasks();
     tasks.push(task);
     localStorage.setItem(this.localStorageKey, JSON.stringify(tasks));
-    return of(task);
+    this.tasks.next(tasks);
   }
 
   deleteTasks(tasksToDelete: Task[]): Observable<void> {
-    let tasks = JSON.parse(localStorage.getItem(this.localStorageKey) || '[]');
-    tasks = tasks.filter((task: Task) => !tasksToDelete.includes(task));
+    let tasks = this.getTasks();
+    const tasksToDeleteIds = tasksToDelete.map(task => task.id);
+    tasks = tasks.filter((task: Task) => !tasksToDeleteIds.includes(task.id));
     localStorage.setItem(this.localStorageKey, JSON.stringify(tasks));
+    this.tasks.next(tasks);
     return of();
   }
 
+
   addTaskToUser(userId: string, taskId: string): Observable<void> {
     return this.userService.getUsers().pipe(
-      switchMap(users => {
+      switchMap((users) => {
         const user = users.find((user: User) => user.id === userId);
         if (user) {
           user.taskIds = user.taskIds || [];
           if (!user.taskIds.includes(taskId)) {
             user.taskIds.push(taskId);
-            console.log('Updating user with new task:', user); // Debugging log
-            this.userService.updateUser(user).subscribe(() => {
-              console.log('User updated successfully:', user); // Debugging log
-            }, error => {
-              console.error('Error updating user:', error); // Debugging log
-            });
+            this.userService.updateUser(user).subscribe();
           }
-        } else {
-          console.warn('User not found:', userId); // Debugging log
         }
         return of();
       })
@@ -57,19 +65,12 @@ export class TaskService {
 
   removeTaskFromUser(userId: string, taskId: string): Observable<void> {
     return this.userService.getUsers().pipe(
-      switchMap(users => {
+      switchMap((users) => {
         const user = users.find((user: User) => user.id === userId);
         if (user) {
           user.taskIds = user.taskIds || [];
           user.taskIds = user.taskIds.filter((id: string) => id !== taskId);
-          console.log('Removing task from user:', user); // Debugging log
-          this.userService.updateUser(user).subscribe(() => {
-            console.log('User updated successfully:', user); // Debugging log
-          }, error => {
-            console.error('Error updating user:', error); // Debugging log
-          });
-        } else {
-          console.warn('User not found:', userId); // Debugging log
+          this.userService.updateUser(user).subscribe();
         }
         return of();
       })
@@ -91,7 +92,9 @@ export class TaskService {
 
   private convertToCSV(tasks: Task[]): string {
     const headers = ['Task Name', 'Task Description', 'No of Users'];
-    const rows = tasks.map(task => [task.name, task.description, task.userIds.length].join(','));
+    const rows = tasks.map((task) =>
+      [task.name, task.description, task.userIds.length].join(',')
+    );
     return [headers.join(','), ...rows].join('\n');
   }
 }

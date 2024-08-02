@@ -6,7 +6,7 @@ import { User } from '../../models/user.model';
 @Component({
   selector: 'app-remove-task-popup',
   templateUrl: './remove-task-popup.component.html',
-  styleUrls: ['./remove-task-popup.component.css']
+  styleUrls: ['./remove-task-popup.component.css'],
 })
 export class RemoveTaskPopupComponent {
   @Input() visible: boolean = false;
@@ -17,19 +17,19 @@ export class RemoveTaskPopupComponent {
   tasks: Task[] = [];
   selectedTask: Task | null = null;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
-    this.taskService.getTasks().subscribe((tasks: Task[]) => {
-      this.tasks = tasks;
-    });
+    this.tasks = this.taskService.getTasks();
   }
 
   save(): void {
     if (this.user && this.selectedTask) {
-      this.taskService.removeTaskFromUser(this.user.id, this.selectedTask.id).subscribe(() => {
-        this.taskRemoved.emit(); // No arguments here
-      });
+      this.taskService
+        .removeTaskFromUser(this.user.id, this.selectedTask.id)
+        .subscribe(() => {
+          this.taskRemoved.emit(); // No arguments here
+        });
     }
   }
 

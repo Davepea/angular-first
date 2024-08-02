@@ -1,40 +1,29 @@
-// src/app/task-page/task-page.component.ts
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../services/task.service';
 import { Task } from '../../models/task.model';
+import { AuthService } from '../auth.service'
 
 @Component({
   selector: 'app-task-page',
   templateUrl: './task-page.component.html',
-  styleUrls: ['./task-page.component.css']
+  styleUrls: ['./task-page.component.css'],
 })
 export class TaskPageComponent implements OnInit {
   tasks: Task[] = [];
   isCardView = true;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loadTasks();
   }
 
-  loading = true;
-
-loadTasks(): void {
-  this.taskService.getTasks().subscribe({
-    next: (tasks: Task[]) => {
-      this.tasks = tasks;
-      this.loading = false;
-    },
-    error: (err) => {
-      console.error('Failed to load tasks', err);
-      this.loading = false;
-      // Optionally, handle the error
+  loadTasks(): void {
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser) {
+      this.tasks = this.taskService.getTasksForCurrentUser(currentUser.id);
     }
-  });
-}
-
-
+  }
 
   toggleView(): void {
     this.isCardView = !this.isCardView;

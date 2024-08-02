@@ -1,11 +1,11 @@
 <!-- manage-users.component.html -->
-<div class="p-6 bg-gray-100">
+<div class="md:p-6 bg-gray-100">
   <h2 class="text-2xl font-bold mb-4">Manage Users</h2>
- <div class="flex gap-4">
-  <button pButton type="button" label="Add User" icon="pi pi-plus" class="mb-4 bg-green-500 py-2 px-6 text-white" (click)="showAddUserPopup()"></button>
-  <button pButton type="button" label="Delete Selected Users" icon="pi pi-trash" class="mb-4 bg-red-500 py-2 px-6 text-white" [disabled]="!anyUserSelected()" (click)="deleteSelectedUsers()"></button>
-  <button pButton type="button" label="Import Users from CSV" icon="pi pi-file-import" class="mb-4 bg-blue-500 py-2 px-6 text-white" (click)="importUsersFromCSV()"></button>
-  <button pButton type="button" label="Export Users to CSV" icon="pi pi-file-export" class="mb-4 bg-blue-500 py-2 px-6 text-white" (click)="exportUsersToCSV()"></button>
+ <div class="flex justify-between flex-wrap">
+  <button pButton type="button" label="Add User" icon="pi pi-plus" class="mb-4 bg-green-500 py-2 px-6 text-white md:w-[200px]  xs:text-xs md:text-base xs:w-[190px]" (click)="showAddUserPopup()"></button>
+  <button pButton type="button" label="Delete Selected Users" icon="pi pi-trash" class="mb-4 bg-red-500 py-2 px-6 text-white md:w-[200px]  xs:text-xs md:text-base xs:w-[190px]" [disabled]="!anyUserSelected()" (click)="deleteSelectedUsers()"></button>
+  <button pButton type="button" label="Import Users from CSV" icon="pi pi-file-import" class="mb-4 bg-blue-500 py-2 px-6 text-white md:w-[200px]  xs:text-xs md:text-base xs:w-[190px]" (click)="importUsersFromCSV()"></button>
+  <button pButton type="button" label="Export Users to CSV" icon="pi pi-file-export" class="mb-4 bg-blue-500 py-2 px-6 text-white md:w-[200px]  xs:text-xs md:text-base xs:w-[190px]" (click)="exportUsersToCSV()"></button>
  </div>
 
   <p-table [value]="users" selectionMode="multiple" [(selection)]="selectedUsers" dataKey="id">

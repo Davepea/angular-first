@@ -3,13 +3,13 @@ import { User } from '../../models/user.model';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   private localStorageKey = 'users';
   private idCounterKey = 'userIdCounter';
 
-  constructor() { }
+  constructor() {}
 
   private getNextId(): string {
     const currentCounter = Number(localStorage.getItem(this.idCounterKey)) || 0;
@@ -19,12 +19,16 @@ export class UserService {
   }
 
   getUsers(): Observable<User[]> {
-    const users = JSON.parse(localStorage.getItem(this.localStorageKey) || '[]');
+    const users = JSON.parse(
+      localStorage.getItem(this.localStorageKey) || '[]'
+    );
     return of(users);
   }
 
   addUser(user: User): Observable<User> {
-    const users = JSON.parse(localStorage.getItem(this.localStorageKey) || '[]');
+    const users = JSON.parse(
+      localStorage.getItem(this.localStorageKey) || '[]'
+    );
     user.id = this.getNextId();
     user.noOfTasks = user.taskIds ? user.taskIds.length : 0;
     users.push(user);
@@ -34,19 +38,21 @@ export class UserService {
 
   deleteUsers(usersToDelete: User[]): Observable<void> {
     let users = JSON.parse(localStorage.getItem(this.localStorageKey) || '[]');
-    users = users.filter((user: User) => !usersToDelete.some(u => u.id === user.id));
+    users = users.filter(
+      (user: User) => !usersToDelete.some((u) => u.id === user.id)
+    );
     localStorage.setItem(this.localStorageKey, JSON.stringify(users));
     return of();
   }
 
   updateUser(user: User): Observable<void> {
     let users = JSON.parse(localStorage.getItem(this.localStorageKey) || '[]');
-    users = users.map((u: User) => u.id === user.id ? user : u);
+    users = users.map((u: User) => (u.id === user.id ? user : u));
     localStorage.setItem(this.localStorageKey, JSON.stringify(users));
     return of();
   }
 
-  assignTasksToUsers(taskId: string, userIds: string[]): Observable<void> {
+  assignTasksToUsers(taskId: string, userIds: string[]): void {
     let users = JSON.parse(localStorage.getItem(this.localStorageKey) || '[]');
     users = users.map((user: User) => {
       if (userIds.includes(user.id)) {
@@ -61,7 +67,6 @@ export class UserService {
       return user;
     });
     localStorage.setItem(this.localStorageKey, JSON.stringify(users));
-    return of();
   }
 
   exportUsersToCSV(users: User[]): void {
@@ -79,7 +84,9 @@ export class UserService {
 
   private convertToCSV(users: User[]): string {
     const headers = ['User Name', 'Email', 'Is Admin', 'No of Tasks'];
-    const rows = users.map(user => [user.userName, user.email, user.isAdmin, user.noOfTasks].join(','));
+    const rows = users.map((user) =>
+      [user.userName, user.email, user.isAdmin, user.noOfTasks].join(',')
+    );
     return [headers.join(','), ...rows].join('\n');
   }
 }

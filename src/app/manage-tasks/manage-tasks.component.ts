@@ -5,23 +5,25 @@ import { Task } from '../../models/task.model';
 @Component({
   selector: 'app-manage-tasks',
   templateUrl: './manage-tasks.component.html',
-  styleUrls: ['./manage-tasks.component.css']
+  styleUrls: ['./manage-tasks.component.css'],
 })
 export class ManageTasksComponent implements OnInit {
   tasks: Task[] = [];
   selectedTasks: Task[] = [];
   displayCreateTaskDialog = false;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService) {
+    this.taskService.tasks.subscribe((tasks: Task[]) => {
+      this.tasks = tasks;
+    });
+  }
 
   ngOnInit(): void {
     this.loadTasks();
   }
 
   loadTasks(): void {
-    this.taskService.getTasks().subscribe((tasks: Task[]) => {
-      this.tasks = tasks;
-    });
+    this.taskService.loadTasks();
   }
 
   showCreateTaskDialog(): void {
@@ -32,9 +34,9 @@ export class ManageTasksComponent implements OnInit {
     this.displayCreateTaskDialog = false;
   }
 
-  onTaskAdded(): void {
-    this.loadTasks();
-  }
+  // onTaskAdded(): void {
+  //   this.loadTasks();
+  // }
 
   anyTaskSelected(): boolean {
     return this.selectedTasks.length > 0;

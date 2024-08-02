@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
+// src/app/services/auth.service.ts
 interface User {
-  id: number;  // Add id property
+  id: string;
   email: string;
   userName: string;
   password: string;
@@ -16,8 +17,8 @@ export class AuthService {
   private readonly USER_ID_KEY = 'userIdCounter';
 
   private hardcodedUsers: User[] = [
-    { id: 1, email: 'admin@example.com', userName: 'admin', password: 'admin123', isAdmin: true },
-    { id: 2, email: 'user@example.com', userName: 'user', password: 'user123', isAdmin: false },
+    { id: '1', email: 'admin@example.com', userName: 'admin', password: 'admin123', isAdmin: true },
+    { id: '2', email: 'user@example.com', userName: 'user', password: 'user123', isAdmin: false },
   ];
 
   private users: User[] = [];
@@ -40,10 +41,10 @@ export class AuthService {
     localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
   }
 
-  private getNextUserId(): number {
+  private getNextUserId(): string {
     const currentId = localStorage.getItem(this.USER_ID_KEY);
-    const nextId = currentId ? parseInt(currentId, 10) + 1 : 3; // Start from 3 to account for hardcoded users
-    localStorage.setItem(this.USER_ID_KEY, nextId.toString());
+    const nextId = currentId ? (parseInt(currentId, 10) + 1).toString() : '3'; // Start from '3' to account for hardcoded users
+    localStorage.setItem(this.USER_ID_KEY, nextId);
     return nextId;
   }
 
@@ -71,7 +72,7 @@ export class AuthService {
   }
 
   addUser(newUser: User): void {
-    newUser.id = this.getNextUserId(); // Assign an ID to the new user
+    newUser.id = this.getNextUserId(); // Assign a string ID to the new user
     const users = this.getLocalStorageUsers();
     users.push(newUser);
     this.saveUsersToLocalStorage(users);

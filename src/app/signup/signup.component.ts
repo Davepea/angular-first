@@ -32,7 +32,7 @@ export class SignupComponent {
   onSignup() {
     if (this.signupForm.valid) {
       const { email, userName, password, isAdmin } = this.signupForm.value;
-      const newUser = { id: 0, email, userName, password, isAdmin }; // id will be assigned in addUser
+      const newUser = { id: '', email, userName, password, isAdmin }; // id will be assigned in addUser
       this.authService.addUser(newUser);
       alert('Signup successful');
       this.router.navigate(['/login']);
