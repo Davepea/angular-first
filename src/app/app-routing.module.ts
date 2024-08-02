@@ -8,6 +8,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { TaskPageComponent } from './task-page/task-page.component';
 import { LayoutComponent } from './layout/layout.component';
+import { ManageTasksComponent } from './manage-tasks/manage-tasks.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-      { path: 'manage', component: ManageUsersComponent, canActivate: [AuthGuard, AdminGuard] },
+      { path: 'manage-user', component: ManageUsersComponent, canActivate: [AuthGuard, AdminGuard] },
+      { path: 'manage-task', component: ManageTasksComponent, canActivate: [AuthGuard, AdminGuard] },
       { path: 'tasks', component: TaskPageComponent, canActivate: [AuthGuard] }
     ]
   },

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { AuthService } from '../auth.service';  // Import AuthService
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -13,10 +13,10 @@ export class SignupComponent {
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {  // Inject AuthService
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.signupForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      username: ['', Validators.required],
+      userName: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required],
       isAdmin: [false]
@@ -31,8 +31,8 @@ export class SignupComponent {
 
   onSignup() {
     if (this.signupForm.valid) {
-      const { email, username, password, isAdmin } = this.signupForm.value;
-      const newUser = { email, username, password, isAdmin };
+      const { email, userName, password, isAdmin } = this.signupForm.value;
+      const newUser = { id: 0, email, userName, password, isAdmin }; // id will be assigned in addUser
       this.authService.addUser(newUser);
       alert('Signup successful');
       this.router.navigate(['/login']);

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 
 interface User {
+  id: number;  // Add id property
   email: string;
-  username: string;
+  userName: string;
   password: string;
   isAdmin: boolean;
 }
@@ -11,9 +12,12 @@ interface User {
   providedIn: 'root'
 })
 export class AuthService {
+  private readonly USERS_KEY = 'users';
+  private readonly USER_ID_KEY = 'userIdCounter';
+
   private hardcodedUsers: User[] = [
-    { email: 'admin@example.com', username: 'admin', password: 'admin123', isAdmin: true },
-    { email: 'user@example.com', username: 'user', password: 'user123', isAdmin: false },
+    { id: 1, email: 'admin@example.com', userName: 'admin', password: 'admin123', isAdmin: true },
+    { id: 2, email: 'user@example.com', userName: 'user', password: 'user123', isAdmin: false },
   ];
 
   private users: User[] = [];
@@ -28,12 +32,19 @@ export class AuthService {
   }
 
   private getLocalStorageUsers(): User[] {
-    const usersJson = localStorage.getItem('users');
+    const usersJson = localStorage.getItem(this.USERS_KEY);
     return usersJson ? JSON.parse(usersJson) : [];
   }
 
   private saveUsersToLocalStorage(users: User[]): void {
-    localStorage.setItem('users', JSON.stringify(users));
+    localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
+  }
+
+  private getNextUserId(): number {
+    const currentId = localStorage.getItem(this.USER_ID_KEY);
+    const nextId = currentId ? parseInt(currentId, 10) + 1 : 3; // Start from 3 to account for hardcoded users
+    localStorage.setItem(this.USER_ID_KEY, nextId.toString());
+    return nextId;
   }
 
   login(email: string, password: string): boolean {
@@ -60,6 +71,7 @@ export class AuthService {
   }
 
   addUser(newUser: User): void {
+    newUser.id = this.getNextUserId(); // Assign an ID to the new user
     const users = this.getLocalStorageUsers();
     users.push(newUser);
     this.saveUsersToLocalStorage(users);

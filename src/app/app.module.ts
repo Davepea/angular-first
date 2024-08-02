@@ -33,6 +33,12 @@ import { TaskCardComponent } from './task-card/task-card.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { LayoutComponent } from './layout/layout.component';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ManageTasksComponent } from './manage-tasks/manage-tasks.component';
+import { CreateTaskComponent } from './create-task/create-task.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+
+
+// import { ManageTasksComponent } from './manage-tasks/manage-tasks.component';
 
 
 
@@ -54,6 +60,10 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 
     TaskListComponent,
     LayoutComponent,
+    ManageTasksComponent,
+    CreateTaskComponent,
+
+    // ManageTasksComponent,
 
   ],
   imports: [
@@ -63,6 +73,8 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    MultiSelectModule,
+
     InputTextModule,
     ButtonModule,
     TableModule,

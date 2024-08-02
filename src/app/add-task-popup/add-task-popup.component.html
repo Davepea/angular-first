@@ -1,4 +1,4 @@
-<p-dialog header="Add Task" [(visible)]="visible" [modal]="true" [closable]="false" [responsive]="true">
+<p-dialog header="Add Task" [(visible)]="visible" [modal]="true" [closable]="false" [responsive]="true" (onHide)="cancel()">
   <div class="p-fluid">
     <div class="p-field">
       <label for="task">Task</label>
