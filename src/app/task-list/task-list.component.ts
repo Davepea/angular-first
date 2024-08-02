@@ -1,5 +1,4 @@
-// src/app/task-list/task-list.component.ts
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Task } from '../../models/task.model';
 
 @Component({
@@ -7,6 +6,12 @@ import { Task } from '../../models/task.model';
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
-export class TaskListComponent {
-  @Input() tasks!: Task[];
+export class TaskListComponent implements OnInit {
+  @Input() tasks: Task[] = [];
+
+  constructor() {}
+
+  ngOnInit() {
+    // Any initialization logic
+  }
 }

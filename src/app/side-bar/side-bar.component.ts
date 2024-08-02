@@ -9,11 +9,16 @@ import { Router } from '@angular/router';
 })
 export class SideBarComponent implements OnInit {
   isAdmin: boolean = false;
+  manageMenuOpen: boolean = false; // State to manage the toggle of the Manage menu
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.isAdmin = this.authService.isAdmin();
+  }
+
+  toggleManageMenu(): void {
+    this.manageMenuOpen = !this.manageMenuOpen; // Toggle the state
   }
 
   onLogout(): void {

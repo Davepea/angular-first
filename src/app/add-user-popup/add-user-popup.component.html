@@ -8,9 +8,14 @@
       <label for="email">Email</label>
       <input id="email" type="email" pInputText [(ngModel)]="user.email">
     </div>
+    <div class="p-field pb-2">
+      <label class="text-sm" for="isAdmin">Is Admin</label>
+      <p-toggleButton [(ngModel)]="user.isAdmin" onLabel="Yes" offLabel="No"></p-toggleButton>
+
+    </div>
     <div class="p-field">
-      <label for="isAdmin">Is Admin</label>
-      <p-checkbox [(ngModel)]="user.isAdmin"></p-checkbox>
+      <label for="password">Password</label>
+      <input id="password" type="password" pInputText [(ngModel)]="user.password">
     </div>
   </div>
   <p-footer>

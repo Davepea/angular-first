@@ -2,7 +2,7 @@
   <h2 class="text-2xl font-bold mb-4">Manage Tasks</h2>
   <div class="flex gap-4">
     <button pButton label="Create Task" class="mb-4 bg-green-500 py-2 px-6 text-white" icon="pi pi-plus" (click)="showCreateTaskDialog()"></button>
-    <button pButton type="button" label="Delete Selected Tasks" icon="pi pi-trash" class="mb-4 bg-red-500 py-2 px-6 text-white" [disabled]="!anyTaskSelected()" (click)="deleteSelectedTasks()"></button>
+    <button pButton type="button" label="Delete Selected Tasks" icon="pi pi-trash" class="mb-4 bg-red-500 py-2 px-6 text-white" (click)="deleteSelectedTasks()" [disabled]="!anyTaskSelected()"></button>
     <button pButton type="button" label="Import Tasks from CSV" icon="pi pi-file-import" class="mb-4 bg-blue-500 py-2 px-6 text-white" (click)="importTasksFromCSV()"></button>
     <button pButton type="button" label="Export Tasks to CSV" icon="pi pi-file-export" class="mb-4 bg-blue-500 py-2 px-6 text-white" (click)="exportTasksToCSV()"></button>
   </div>
@@ -31,5 +31,9 @@
   </p-table>
 
   <!-- Conditionally show CreateTaskComponent -->
-  <app-create-task [display]="displayCreateTaskDialog" (hide)="hideCreateTaskDialog()"></app-create-task>
+  <app-create-task
+  [display]="displayCreateTaskDialog"
+  (hide)="hideCreateTaskDialog()"
+  (taskAdded)="onTaskAdded()">
+</app-create-task>
 </div>

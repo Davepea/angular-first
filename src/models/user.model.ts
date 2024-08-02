@@ -5,4 +5,5 @@ export interface User {
   isAdmin: boolean;
   noOfTasks: number;
   taskIds?: string[];
+  password?: string; // Add this line
 }
